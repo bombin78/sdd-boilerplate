@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(//)",
+      "Write(//)",
+      "Edit(//)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git restore *)",
+      "Bash(git reset *)",
+      "Bash(git push *)",
+      "Edit(.git/**)"
+    ],
+    "allow": [
+      "Read(.)",
+      "Read(./**)",
+      "Write(.)",
+      "Write(./**)",
+      "Edit(.)",
+      "Edit(./**)",
+      "WebSearch",
+      "WebFetch"
+    ]
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "allowRead": [
+        "."
+      ],
+      "allowWrite": [
+        "."
+      ],
+      "denyRead": [
+        "~/"
+      ],
+      "denyWrite": [
+        "~/",
+        ".git"
+      ]
+    }
+  }
+}

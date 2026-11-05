@@ -1,0 +1,1 @@
+../../notes/claude/stack-rules.md
