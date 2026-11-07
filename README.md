@@ -67,10 +67,23 @@ rsync -a --ignore-existing --exclude /.git --exclude /README.md ~/dev/sdd-boiler
 **3. Дописать `.gitignore` проекта.** Строки — в `notes/README.md`,
 раздел «Строки в `.gitignore` проекта».
 
-**4. Включить хук `pre-commit`:**
+**4. Решить, нужен ли хук `pre-commit`.** Хук
+`.githooks/pre-commit` отменяет коммит, если текущая ветка — `main`.
+Тогда изменения попадают в `main` только через pull request.
+
+Если хук нужен, включить его:
 
 ```bash
 git config core.hooksPath .githooks
+```
+
+Эта настройка записывается в `.git/config` и действует только в этом
+клоне. В каждом новом клоне проекта команду нужно выполнить снова.
+
+Если хук не нужен, удалить его папку:
+
+```bash
+rm -r .githooks
 ```
 
 **5. Сделать `notes/` отдельным репозиторием:**

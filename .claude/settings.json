@@ -1,9 +1,15 @@
 {
   "permissions": {
     "deny": [
-      "Read(//)",
-      "Write(//)",
-      "Edit(//)",
+      "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.bashrc)",
+      "Read(~/.profile)",
+      "Read(~/.bash_history)",
+      "Read(~/.git-credentials)",
+      "Read(~/.npmrc)",
+      "Read(~/.docker/config.json)",
+      "Read(~/.config/gh/**)",
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git restore *)",
@@ -40,7 +46,6 @@
         "~/"
       ],
       "denyWrite": [
-        "~/",
         ".git"
       ]
     }

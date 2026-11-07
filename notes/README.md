@@ -140,12 +140,17 @@ ln -s ../../notes/claude/agents/answer-reviewer.md .claude/agents/answer-reviewe
 ### Строки в `.gitignore` проекта
 
 ```gitignore
+# personal Claude setup: rules, explanations
 /CLAUDE.local.md
 /.claude/agents
 /.claude/skills
 /.claude/rules
-/notes
+
+# deferred remarks
 /backlog.md
+
+# private notes repository
+/notes
 ```
 
 `.claude/settings.local.json` в проекте игнорирует глобальный
