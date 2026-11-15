@@ -76,7 +76,7 @@ Claude Code ищет правила, скиллы, агентов и настр�
 | `.claude/skills/explain` | символическая ссылка на `notes/claude/skills/explain` |
 | `.claude/skills/setup-project` | символическая ссылка на `notes/claude/skills/setup-project` |
 | `.claude/agents/answer-reviewer.md` | символическая ссылка на `notes/claude/agents/answer-reviewer.md` |
-| `.claude/settings.local.json` | подключает хуки `notes/hooks/protect-notes.sh` и `notes/hooks/block-git-writes.py` |
+| `.claude/settings.local.json` | подключает хуки `notes/hooks/protect-notes.sh` и `notes/hooks/block-git-writes.py`, задаёт переменную окружения для команд Claude |
 
 ### `CLAUDE.local.md`
 
@@ -117,6 +117,9 @@ ln -s ../../notes/claude/agents/answer-reviewer.md .claude/agents/answer-reviewe
 
 ```json
 {
+  "env": {
+    "npm_config_update_notifier": "false"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -136,6 +139,16 @@ ln -s ../../notes/claude/agents/answer-reviewer.md .claude/agents/answer-reviewe
   }
 }
 ```
+
+Ключ `env` задаёт переменные окружения. Claude Code передаёт их в каждую
+команду, которую запускает. npm читает переменную `npm_config_<настройка>`
+как свою настройку. Поэтому `npm_config_update_notifier=false` выключает
+проверку новой версии npm на `registry.npmjs.org` во всех командах `npm`
+и `npx` Claude. Без неё npm в песочнице проверяет версию при каждом
+запуске: песочница не даёт ему прочитать `~/.npm`, где он хранит время
+последней проверки. На команды в своём терминале переменная не влияет.
+Команды проверки в `claude/stack-rules.md` вдобавок содержат флаг
+`--no-update-notifier`: он выключает ту же проверку и виден в тексте.
 
 ### Строки в `.gitignore` проекта
 

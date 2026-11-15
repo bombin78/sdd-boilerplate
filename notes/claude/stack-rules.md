@@ -60,10 +60,22 @@ paths:
 <!--
   Команды, которые Claude запускает после каждой правки кода. Все
   должны пройти без ошибок. Пример:
-  1. `npm run lint`
-  2. `npx tsc --noEmit`
-  3. `npm run build`. `next build` пишет не в ту папку, что `next dev`,
-     поэтому запущенному у пользователя серверу не мешает.
+  1. `npm --no-update-notifier run lint`
+  2. `npx --no-update-notifier tsc --noEmit`
+  3. `npm --no-update-notifier run build`. `next build` пишет не в ту
+     папку, что `next dev`, поэтому запущенному у пользователя серверу
+     не мешает.
+
+  Если команды запускаются через npm или npx, после команд нужен абзац:
+
+  Флаг `--no-update-notifier` выключает проверку новой версии npm
+  на `registry.npmjs.org`. Песочница не даёт npm прочитать `~/.npm`,
+  где он хранит время последней проверки, поэтому в командах Claude
+  npm проверяет версию при каждом запуске. В остальных командах Claude
+  ту же проверку выключает переменная окружения
+  `npm_config_update_notifier=false` из ключа `env`
+  в `.claude/settings.local.json`. В своём терминале флаг не нужен:
+  там npm проверяет версию раз в неделю.
 -->
 
 1. (заполняет /setup-project)
