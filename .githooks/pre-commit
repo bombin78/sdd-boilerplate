@@ -3,6 +3,6 @@
 branch=$(git rev-parse --abbrev-ref HEAD)
 if [ "$branch" = "main" ]; then
     echo "Commit to main is not allowed. Create a branch first:" >&2
-    echo "  git switch -c <direction>/T<task>-S<stage>   e.g. app/T0001-S0001" >&2
+    echo "  git switch -c <direction>/<label>/T<task>-S<stage>   e.g. app/PROJ-123/T0001-S0001" >&2
     exit 1
 fi
