@@ -14,8 +14,8 @@ paths:
 
 Здесь только правила, которые не зависят от стека. Правила стека,
 команды проверки и где лежит документация — в
-`notes/claude/stack-rules.md`. Формат коммитов — в `AGENTS.md` проекта,
-записи в git и долгие проверки — в `notes/claude/common-rules.md`,
+`notes/claude/stack-rules.md`. Формат коммитов, записи в git и долгие
+проверки — в `notes/claude/common-rules.md`,
 порядок приёмки этапа — в `notes/tasks/README.md`.
 
 ## Перед кодом

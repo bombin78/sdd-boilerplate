@@ -77,7 +77,7 @@ Claude Code ищет правила, скиллы, агентов и настр�
 | `.claude/skills/explain` | символическая ссылка на `notes/claude/skills/explain` |
 | `.claude/skills/setup-project` | символическая ссылка на `notes/claude/skills/setup-project` |
 | `.claude/agents/answer-reviewer.md` | символическая ссылка на `notes/claude/agents/answer-reviewer.md` |
-| `.claude/settings.local.json` | подключает хуки `notes/hooks/protect-notes.sh` и `notes/hooks/block-git-writes.py`, задаёт переменную окружения для команд Claude |
+| `.claude/settings.local.json` | подключает хуки `notes/hooks/protect-notes.sh` и `notes/hooks/block-git-writes.py`, задаёт переменную окружения для команд Claude. В существующем проекте — ещё права и песочницу |
 
 ### `CLAUDE.local.md`
 
@@ -163,8 +163,8 @@ git проекта их игнорирует. Строки для этого п�
 
 Команда выполняется из корня проекта. Она дописывает строки один раз:
 если строка `/notes` в файле уже есть, команда ничего не меняет.
-Claude её выполнить не может: запись в `.git` запрещают
-`.claude/settings.json` и песочница.
+Claude её выполнить не может: запись в `.git` запрещают правило
+`Edit(.git/**)` в настройках Claude Code и песочница.
 
 ```bash
 mkdir -p .git/info
@@ -216,7 +216,7 @@ Claude Code запускает его перед каждой командой B
 `stash`. Список — в переменной `BLOCKED` внутри скрипта. Чтение (`status`,
 `log`, `diff`, `show`, `branch -a`, `fetch`) хук пропускает.
 
-Зачем он нужен, если есть `permissions.deny` в `.claude/settings.json`
+Зачем он нужен, если есть `permissions.deny` в настройках Claude Code
 проекта. Правила `deny` вида `Bash(git commit *)` сравнивают начало
 команды. `git -C notes commit …` начинается с `git -C` и проходит мимо них.
 Поэтому без хука Claude может закоммитить в репозиторий `notes/`, хотя
@@ -252,8 +252,8 @@ Claude Code запускает его перед каждой командой B
 - `/notes` в `.git/info/exclude` проекта: `git add .` и `git add notes` в проекте
   папку пропускают.
 - Claude не выполняет `git add`, `git commit`, `git push` и другие команды,
-  которые меняют git. Их запрещают `permissions.deny` в
-  `.claude/settings.json` проекта и хук `block-git-writes.py`.
+  которые меняют git. Их запрещают `permissions.deny` в настройках
+  Claude Code проекта и хук `block-git-writes.py`.
 - Обойти игнорирование может только `git add -f`. В проекте его не использовать.
 
 ## Как собрать всё заново
@@ -289,7 +289,12 @@ Claude Code запускает его перед каждой командой B
 3. Добавить строки в `.git/info/exclude` проекта и проверить их
    командами из раздела «Строки в `.git/info/exclude` проекта».
 4. Создать в проекте `CLAUDE.local.md` и `.claude/settings.local.json`
-   по тексту выше.
+   по тексту выше. Если в проекте нет `.claude/settings.json` или в нём
+   нет ключа `sandbox`, проект подключали по разделу «Как подключить
+   к существующему проекту» README бойлерплейта
+   (https://github.com/bombin78/sdd-boilerplate). Тогда права
+   и песочницу добавьте в `.claude/settings.local.json` по шагу 4 этого
+   раздела, а `CLAUDE.local.md` проверьте по шагу 5.
 5. Создать символические ссылки командами `ln -s` из раздела выше.
 6. Включить хук `pre-commit` проекта, если в проекте есть папка
    `.githooks/`. Команда — в README проекта.
